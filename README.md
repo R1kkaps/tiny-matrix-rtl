@@ -1,6 +1,33 @@
-# TinyMAC
+# Tiny Matrix RTL
 
-### A Small Signed Matrix-Multiplication Datapath in Verilog
+### A Small Signed 2×2 Matrix-Multiplication Datapath in Verilog
+
+An introductory RTL project built while learning Verilog and Vivado,
+motivated by my interest in FPGA/ASIC AI accelerators and computer
+architecture.
+
+## At a Glance
+
+- Signed INT8 2×2 matrix multiplication.
+- Four parallel dot-product units.
+- Self-checking Verilog testbenches.
+- Behavioral simulation and RTL elaboration in Vivado 2026.1.
+- Synthesis for Xilinx Artix-7 XC7A200T.
+- 544 LUTs, 0 FFs, and 0 DSPs in the current combinational implementation.
+
+## Quick Start
+
+From the repository root, generate the portable Vivado project and run the
+self-checking simulations:
+
+```powershell
+vivado -mode batch -source vivado/create_project.tcl
+vivado -mode batch -source vivado/run_tests.tcl
+vivado -mode batch -source vivado/run_synthesis.tcl
+```
+
+The scripts recreate `vivado/build/`, which is ignored by Git. See
+[`vivado/README.md`](vivado/README.md) for GUI instructions and details.
 
 ## Overview
 
@@ -57,6 +84,11 @@ multiplication with positive, negative, and width-boundary operands. Each
 testbench prints `PASS` or `FAIL` and calls `$finish`.
 
 For example:
+
+![Signed MAC behavioral simulation](docs/images/mac_waveform.png)
+
+*Signed MAC behavioral simulation.* The accumulator is reset to zero, then
+evaluates `3×4 + (-2)×5 = 2` across two enabled clock cycles.
 
 ```text
 A = [1 2]    B = [5 6]    C = [19 22]
@@ -117,7 +149,10 @@ Verilog. Building the hierarchy helped me see that four instantiated dot
 units represent parallel hardware, unlike four steps in a software loop. I
 became familiar with reading Vivado's elaborated RTL and synthesis reports.
 This project also helped me understand why a useful accelerator needs a data
-movement and memory design in addition to arithmetic units.
+movement and memory design in addition to arithmetic units. One useful part of
+this exercise was seeing how a simple Verilog multiplication and addition
+expanded into RTL arithmetic blocks and, after synthesis, into LUT and carry
+resources on the FPGA.
 
 ## Limitations
 
