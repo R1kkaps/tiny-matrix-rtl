@@ -1,0 +1,22 @@
+# Vivado generated project and output
+vivado/build/
+.Xil/
+*.jou
+*.log
+*.str
+*.runs/
+*.sim/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.gen/
+*.dcp
+*.wdb
+*.pb
+*.wcfg
+
+# Local editor / OS files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
